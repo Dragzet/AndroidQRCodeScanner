@@ -12,6 +12,10 @@ import com.google.zxing.Result;
 
 import android.Manifest;
 import android.app.Activity;
+import android.content.ClipData;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -50,7 +54,12 @@ public class QRScanner extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        Toast.makeText(QRScanner.this, result.getText(), Toast.LENGTH_SHORT).show();
+                        ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+                        ClipData clip = ClipData.newPlainText("", result.getText());
+                        clipboard.setPrimaryClip(clip);
+                        Toast.makeText(QRScanner.this, "Скопировано в буфер обмена!", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(QRScanner.this, MainActivity.class);
+                        startActivity(intent);
                     }
                 });
             }

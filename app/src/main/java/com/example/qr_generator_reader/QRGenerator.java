@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,7 +46,7 @@ public class QRGenerator extends Fragment {
         imageView = view.findViewById(R.id.imageView);
         generateButton = view.findViewById(R.id.generateButton);
         generateButton.setOnClickListener(v -> {
-            String image_url = "https://api.qrserver.com/v1/create-qr-code/?data=" + urlText.getText() +"&size=600x600";
+            String image_url = "https://api.qrserver.com/v1/create-qr-code/?data=" + urlText.getText() +"&size=300x300";
             setQRCode(image_url, imageView);
         });
     }
@@ -71,7 +72,7 @@ public class QRGenerator extends Fragment {
                     });
                 } catch (Exception e)
                 {
-                    //write error message
+                    Log.d("YAMATR", e.toString());
                 }
             }
         }).start();
