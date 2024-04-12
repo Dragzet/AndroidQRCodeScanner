@@ -1,5 +1,6 @@
 package com.example.qr_generator_reader;
 
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -53,6 +54,9 @@ public class QRGenerator extends Fragment {
 
     protected void setQRCode(String imageUrl, ImageView imageView)
     {
+        SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase("app.db", null);
+        db.execSQL("INSERT OR IGNORE INTO history VALUES ('GENERATE', imageUrl)");
+        db.close();
         new Thread(new Runnable()
         {
             public void run()
