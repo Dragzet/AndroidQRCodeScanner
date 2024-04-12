@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,7 +17,7 @@ import android.widget.TextView;
 
 public class QRHistory extends Fragment {
 
-
+    TextView need;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -32,8 +33,9 @@ public class QRHistory extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextView need = view.findViewById(R.id.need);
-        SQLiteDatabase db = SQLiteDatabase.openOrCreateDatabase("app.db", null);
+        need = view.findViewById(R.id.need);
+        DBHelper dbHelper = new DBHelper(getContext());
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
         db.execSQL("CREATE TABLE IF NOT EXISTS history (type TEXT, info TEXT)");
         Cursor query = db.rawQuery("SELECT * FROM history;", null);
         while (query.moveToNext())
@@ -45,6 +47,26 @@ public class QRHistory extends Fragment {
 
         query.close();
         db.close();
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        DBHelper dbHelper = new DBHelper(getActivity());
+
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        db.execSQL("CREATE TABLE IF NOT EXISTS history (type TEXT, info TEXT)");
+        Cursor query = db.rawQuery("SELECT * FROM history;", null);
+        while (query.moveToNext())
+        {
+
+            String type = query.getString(0);
+            String info = query.getString(1);
+            Log.d("MainActivity", "asd");
+            need.setText(type + " " + info);
+        }
+
+        query.close();
+        db.close();
     }
 }
