@@ -61,10 +61,7 @@ public class QRGenerator extends Fragment {
         values.put("type", "GENERATE");
         values.put("info", imageUrl);
         long s = db.insert("history", null, values);
-        Log.d("MainActivity", String.valueOf(s));
         db.close();
-        //db.execSQL("INSERT OR IGNORE INTO history VALUES ('GENERATE', imageUrl)");
-        //db.close();
         new Thread(new Runnable()
         {
             public void run()

@@ -14,9 +14,11 @@ import android.Manifest;
 import android.app.Activity;
 import android.content.ClipData;
 import android.content.ClipboardManager;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -45,7 +47,7 @@ public class QRScanner extends AppCompatActivity {
 
         }
         CodeScannerView scannerView = findViewById(R.id.scanner);
-        Log.d("SOSISKA", "adf");
+
         mCodeScanner = new CodeScanner(this, scannerView);
 
         mCodeScanner.setDecodeCallback(new DecodeCallback() {
@@ -56,7 +58,15 @@ public class QRScanner extends AppCompatActivity {
                     public void run() {
                         ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                         ClipData clip = ClipData.newPlainText("", result.getText());
+                        DBHelper dbHelper = new DBHelper(getApplication());
+                        SQLiteDatabase db = dbHelper.getWritableDatabase();
+                        ContentValues values = new ContentValues();
+                        values.put("type", "SCAN");
+                        values.put("info", result.getText());
+                        long s = db.insert("history", null, values);
+                        db.close();
                         clipboard.setPrimaryClip(clip);
+
                         Toast.makeText(QRScanner.this, "Скопировано в буфер обмена!", Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(QRScanner.this, MainActivity.class);
                         startActivity(intent);
@@ -64,6 +74,7 @@ public class QRScanner extends AppCompatActivity {
                 });
             }
         });
+
         scannerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -23,7 +23,6 @@ import java.net.URL;
 
 
 public class MainActivity extends AppCompatActivity {
-    private FrameLayout frameLayout;
     ActivityMainBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
