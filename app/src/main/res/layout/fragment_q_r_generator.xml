@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="40dp"
-        android:text="Generate"
+        android:text="@string/generate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageUrl" />
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="72dp"
         android:textAlignment="center"
-        android:hint="http://example.com"
+        android:hint="@string/http_example_com"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"

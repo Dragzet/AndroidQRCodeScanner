@@ -5,21 +5,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-
-import android.widget.Button;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.TextView;
-
 import com.example.qr_generator_reader.databinding.ActivityMainBinding;
-
-import java.io.InputStream;
-import java.net.URL;
 
 
 public class MainActivity extends AppCompatActivity {

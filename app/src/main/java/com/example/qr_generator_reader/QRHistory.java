@@ -43,7 +43,6 @@ public class QRHistory extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         textList = new ArrayList<>();
-
         recyclerView = view.findViewById(R.id.recyclerView);
         DBHelper dbHelper = new DBHelper(getContext());
         SQLiteDatabase db = dbHelper.getWritableDatabase();
@@ -57,10 +56,10 @@ public class QRHistory extends Fragment {
                 textList.add(type + "\n" + info);
         }
         Collections.reverse(textList);
-
-
         query.close();
         db.close();
+
+
         textAdapter = new TextAdapter(getContext(), textList);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(textAdapter);

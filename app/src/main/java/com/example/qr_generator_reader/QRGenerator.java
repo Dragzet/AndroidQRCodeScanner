@@ -49,6 +49,7 @@ public class QRGenerator extends Fragment {
         generateButton = view.findViewById(R.id.generateButton);
         generateButton.setOnClickListener(v -> {
             String image_url = "https://api.qrserver.com/v1/create-qr-code/?data=" + urlText.getText() +"&size=300x300";
+            Log.d("QRGenerator", "New requests for image");
             setQRCode(image_url, imageView);
         });
     }
@@ -61,6 +62,7 @@ public class QRGenerator extends Fragment {
         values.put("type", "GENERATE");
         values.put("info", imageUrl);
         long s = db.insert("history", null, values);
+        Log.d("QRGenerator", "New insert from generator");
         db.close();
         new Thread(new Runnable()
         {
@@ -76,12 +78,13 @@ public class QRGenerator extends Fragment {
                             if(bitmap !=null)
                             {
                                 imageView.setImageBitmap(bitmap);
+                                Log.d("QRGenerator", "Image created succes");
                             }
                         }
                     });
                 } catch (Exception e)
                 {
-                    Log.d("YAMATR", e.toString());
+                    Log.d("QRGenerator", e.toString());
                 }
             }
         }).start();

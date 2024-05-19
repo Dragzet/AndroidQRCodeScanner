@@ -2,4 +2,6 @@
     <string name="app_name">QR-generator-reader</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="generate">Generate</string>
+    <string name="http_example_com">http://example.com</string>
 </resources>
